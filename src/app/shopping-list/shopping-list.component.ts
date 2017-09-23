@@ -1,4 +1,5 @@
 import { Ingredient } from '../shared/ingredient';
+import { ShoppingListService } from '../shopping-list.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingListComponent implements OnInit {
 items: Ingredient[] = [];
-  constructor() { }
+ selectedItem: Ingredient = null;
+  constructor( private sls: ShoppingListService) { }
 
   ngOnInit() {
+    this.items = this.sls.getData();
+  }
+
+  onSelectItem(item: Ingredient) {
+    this.selectedItem = item;
+  }
+
+  onCleared() {
+    this.selectedItem = null;
   }
 
 }
